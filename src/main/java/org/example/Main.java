@@ -1,9 +1,10 @@
 package org.example;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // 1.
 
@@ -17,7 +18,6 @@ public class Main {
             }
         });
 
-
         // 2.
 
         String[] strArray = {"Mahantesh", "Shrinav", "Chinnu", "Chhotya"};
@@ -29,6 +29,35 @@ public class Main {
             }
             System.out.println(reverse);
         });
+
+        // 3. Filter()
+
+        List<Integer> list2 = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        List<Integer> filteredValues = list2.stream().filter(i -> i % 2 == 0).collect(Collectors.toList());
+        System.out.println(filteredValues);
+
+        list2.stream().filter(n -> n % 2 == 0).forEach(n -> System.out.println(n));
+        list2.stream().filter(n -> n % 2 == 0).forEach(System.out::println);
+
+        List<String> names = new ArrayList<>(Arrays.asList("Mahantesh", null, "Kiranagi", "Ram", "sham", "Tom", null));
+        names.stream().filter(value -> value != null).forEach(System.out::println);
+        List<String> nonNullValues = names.stream().filter(value -> value != null).collect(Collectors.toList());
+
+        nonNullValues.stream().filter(name -> name.length() > 6 && name.length() < 10).forEach(name -> System.out.println(name));
+        nonNullValues.stream().filter(name -> name.length() > 6 && name.length() < 10).forEach(System.out::println);
+
+        // 4.
+
+        List<String> list3 = Arrays.asList("Mahantesh", "Kiranagi", "TSYS", "Global", "Payments");
+        String str = list3.stream().collect(Collectors.joining());
+        String str1 = list3.stream().collect(Collectors.joining(","));
+        String str2 = list3.stream().collect(Collectors.joining(",", "(", ")"));
+        System.out.println(str);
+        System.out.println(str1);
+        System.out.println(str2);
+
+        // 5.
+
 
     }
 }
