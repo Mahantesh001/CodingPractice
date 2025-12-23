@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -168,9 +169,91 @@ public class Main {
             System.out.println(obj);
         }
 
-        
+        // 14. sorted()
 
+        List<Integer> listaa = Arrays.asList(4, 7, 2, 9, 1, 6);
+        int[] intarr = {4, 9, 1, 7, 2, 5, 0, 2, 6};
 
+        // sort List in ascending order
+        List<Integer> li = listaa.stream().sorted().collect(Collectors.toList());
+        System.out.println(li);
+
+        listaa.stream().sorted().forEach(System.out::println);
+
+        // sort List in descending order
+        List<Integer> lis = listaa.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        System.out.println(lis);
+
+        listaa.stream().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+
+        // sort Array in ascending order
+        List<Integer> liss = Arrays.stream(intarr).boxed().sorted().collect(Collectors.toList());
+        System.out.println(liss);
+
+        Arrays.stream(intarr).boxed().sorted().forEach(System.out::println);
+        Arrays.stream(intarr).sorted().forEach(System.out::println);
+
+        // sort Array in descending order
+        List<Integer> lisss = Arrays.stream(intarr).boxed().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        System.out.println(lisss);
+
+        Arrays.stream(intarr).boxed().sorted(Comparator.reverseOrder()).forEach(System.out::println);
+
+        // 15. anyMatch(), allMatch(), noneMatch()
+
+        Set<Integer> set = new HashSet<Integer>();
+        set.add(2);
+        set.add(4);
+        set.add(6);
+        set.add(8);
+        set.add(10);
+        set.add(12);
+
+        boolean result = set.stream().anyMatch(n -> {
+            return n % 2 == 0;
+        });
+        System.out.println(result);
+
+        result = set.stream().allMatch(n -> {
+            return n % 2 == 0;
+        });
+        System.out.println(result);
+
+        result = set.stream().noneMatch(n -> {
+            return n % 2 == 0;
+        });
+        System.out.println(result);
+
+        // 16. findAny() & findFirst()
+
+        List<String> ll=Arrays.asList("Mahi", "Yuvi", "Bhuvi");
+        List<String> emptyList=Arrays.asList();
+
+        Optional<String> strr=ll.stream().findFirst();
+        System.out.println(strr.get());   // Mahi
+
+        Optional<String> strr1=ll.stream().findAny();
+        System.out.println(strr1.get());  // Mahi
+
+        Optional<String> strr2=emptyList.stream().findFirst();
+        System.out.println(strr2.get());  // NoSuchElementException No value present
+        System.out.println(strr2.isPresent());  // False
+
+        Optional<String> str3=emptyList.stream().findAny();
+        System.out.println(str3.get());  // NoSuchElementException No value present
+        System.out.println(str3.isPresent());  // False
+
+        // 17. Stream concatenating
+
+        List<String> birds = Arrays.asList("Peacock", "Sparrow", "Parrot");
+        List<String> animals = Arrays.asList("Bull", "Cow", "Buffallow");
+
+        Stream<String> stream1 = birds.stream();
+        Stream<String> stream2 = animals.stream();
+
+        Stream.concat(stream1, stream2).forEach(System.out::println);
+        List<String> streamList = Stream.concat(stream1, stream2).collect(Collectors.toList());
+        System.out.println(streamList);
 
     }
 }
